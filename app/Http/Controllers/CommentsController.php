@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\Comments;
-use Auth;
-use Validator;
 use Illuminate\Http\Request;
+use App\Comments;
 
-class ArticleController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('landing', [
-            'posts' => Post::latest()->paginate(5)
-        ]);
+        $comments = Comments::latest()->paginate(10);
+
+        return view('admin.comments.index', ['comments' => $comments]);
     }
 
     /**
@@ -40,24 +37,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'post_id' => 'required',
-            'content' => 'required|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            $message = $validator->errors();
-            $this->SetStatusCode(404);
-            return $this->RespondWithError($message);
-        }else{
-            Comments::create([
-                'post_id' => $request->post_id,
-                'user_id' => Auth::user()->id,
-                'content' => $request->content,
-            ]);
-
-            return redirect()->back();
-        }
+        //
     }
 
     /**
@@ -68,10 +48,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-        $comments = Comments::where('post_id', $id)->get();
-
-        return view('single', ['post' => $post, 'comments' => $comments]);
+        //
     }
 
     /**
@@ -105,6 +82,9 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $com = Comments::find($id);
+        $com->delete();
+
+        return redirect()->back();
     }
 }

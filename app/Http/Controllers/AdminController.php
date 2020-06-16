@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 use DB;
 use Carbon\Carbon;
+use App\Comments;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,11 @@ class AdminController extends Controller
                         ->where('users.created_at', '>', Carbon::now()->startOfWeek())
                         ->where('users.created_at', '<', Carbon::now()->endOfWeek())
                         ->count();
+        $comments = Comments::all();
+        $commentsWeek = Comments::where('created_at', '>', Carbon::now()->startOfWeek())
+                                ->where('created_at', '<', Carbon::now()->endOfWeek())
+                                ->count();
 
-        return view('admin.index', ['post' => $post, 'user' => $userCount, 'postWeek' => $postWeek, 'userWeek' => $userWeek]);
+        return view('admin.index', ['post' => $post, 'user' => $userCount, 'postWeek' => $postWeek, 'userWeek' => $userWeek, 'comments' => $comments, 'commentsWeek' => $commentsWeek]);
     }
 }

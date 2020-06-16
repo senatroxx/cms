@@ -60,7 +60,7 @@
                         <ul class="list-unstyled components">
                             <li class="active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('post.index') }}">Articles</a></li>
-                            <li><a href="#">Comments (Coming Soon)</a></li>
+                            <li><a href="{{ route('comments.index') }}">Comments</a></li>
                             <!-- <li>
                                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                                 <ul class="collapse list-unstyled" id="homeSubmenu">

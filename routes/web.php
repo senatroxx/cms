@@ -22,6 +22,7 @@ Route::get('/admin', 'AdminController@index')->name('admin.dashboard');
 
 Route::resource('article', 'ArticleController');
 Route::resource('admin/post', 'PostController');
+Route::resource('admin/comments', 'CommentsController');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
