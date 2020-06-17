@@ -19,4 +19,14 @@ class Post extends Model
     {
         return $this->hasMany(Comments::class);
     }
+
+    public function category()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function catpost()
+    {
+        return $this->hasMany(Categorypost::class);
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
+use App\Categorypost as Catpost;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -52,12 +54,29 @@ class PostController extends Controller
             $body = $request->body;
             preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $body, $image);
 
-            Post::create([
+            $explode = explode(',', str_replace(' ', '',$request->category));
+
+            for ($i=0; $i < count($explode); $i++) {
+                Category::firstOrCreate(['name' => $explode[$i]]);
+            }
+
+            $category_id = new Category;
+            $category_id = $category_id->whereIn('name', $explode);
+            $category = $category_id->get();
+
+            $post_id = Post::create([
                 'user_id' => Auth::user()->id,
                 'title' => $request->title,
                 'body' => $request->body,
-                'image' => $image['src'],
-            ]);
+                'image' => $image['src'] ?? NULL,
+            ])->id;
+
+            for ($y=0; $y < count($category); $y++) { 
+                Catpost::create([
+                    'post_id' => $post_id,
+                    'category_id' => $category[$y]->id,
+                ]);
+            }            
 
             return redirect()->route('post.index');
         }
@@ -127,10 +146,5 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('post.index');
-    }
-
-    public function all()
-    {
-        
     }
 }
