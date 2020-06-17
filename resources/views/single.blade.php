@@ -43,4 +43,13 @@
     </div>
   </div>
 </div>
+<script>
+  var img = document.getElementsByTagName('img');
+  var panjang = img.length;
+  for(var i=1;i< img.length;i++) {
+    if(img[i].src == '{{ $post->image }}') {
+      img[i].parentNode.removeChild(img[i]);
+    }
+  }
+</script>
 @endsection
