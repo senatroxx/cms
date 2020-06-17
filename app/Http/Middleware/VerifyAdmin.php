@@ -18,5 +18,6 @@ class VerifyAdmin
         if ($request->user()->hasRole('user')) {
             return abort(404);
         }
+        return $next($request);
     }
 }

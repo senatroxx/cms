@@ -12,18 +12,6 @@
       <hr>
       <p class="lead">{!! $post->body !!}</p>
       <hr>
-      @if(count($comments) > 0)
-      <h4 class="mb-3">Comments:</h4>
-      @foreach($comments as $com)
-      <div class="media mx-4">
-        <div class="media-body">
-          <h5 class="mx-0">{{ $com->user->name }} <small class="text-muted ml-1">{{ $com->created_at->diffForHumans() }}</small></h5>
-          {{ $com->content }}
-        </div>
-      </div>
-      <hr>
-      @endforeach
-      @endif
       @auth
       <div class="card my-4">
         <h5 class="card-header">Leave a Comment:</h5>
@@ -39,6 +27,19 @@
         </div>
       </div>
       @endauth
+      @if(count($comments) > 0)
+      <hr>
+      <h4 class="mb-3">Comments:</h4>
+      @foreach($comments as $com)
+      <div class="media mx-4">
+        <div class="media-body">
+          <h5 class="mx-0">{{ $com->user->name }} <small class="text-muted ml-1">{{ $com->created_at->diffForHumans() }}</small></h5>
+          {{ $com->content }}
+        </div>
+      </div>
+      <hr>
+      @endforeach
+      @endif
     </div>
   </div>
 </div>
