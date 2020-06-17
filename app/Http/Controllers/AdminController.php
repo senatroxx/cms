@@ -8,6 +8,7 @@ use App\User;
 use DB;
 use Carbon\Carbon;
 use App\Comments;
+use Auth;
 
 class AdminController extends Controller
 {

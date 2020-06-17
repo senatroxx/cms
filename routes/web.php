@@ -18,11 +18,13 @@ Route::get('/', 'ArticleController@index')->name('index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', 'AdminController@index')->name('admin.dashboard');
-
 Route::resource('article', 'ArticleController');
-Route::resource('admin/post', 'PostController');
-Route::resource('admin/comments', 'CommentsController');
+
+Route::middleware(['auth', 'verifyadmin'])->group(function () {
+    Route::get('/admin', 'AdminController@index')->name('admin.dashboard');
+    Route::resource('admin/post', 'PostController');
+    Route::resource('admin/comments', 'CommentsController');
+});
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
