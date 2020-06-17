@@ -10,7 +10,9 @@
       <hr>
       <img class="img-fluid rounded" src=" {!! !empty($post->image) ? $post->image :  'http://placehold.it/750x300' !!} " alt="">
       <hr>
+      <div class="clearfix">
       <p class="lead">{!! $post->body !!}</p>
+      </div>
       <hr>
       @auth
       <div class="card my-4">
