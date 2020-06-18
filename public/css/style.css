@@ -23,7 +23,8 @@
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #2e3338;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
 }
 ul ul a {
     font-size: 0.9em !important;
@@ -52,3 +53,29 @@ a[data-toggle="collapse"] {
 }
 
 .post-style-1 .blog-image{ max-height: 200px; overflow: hidden; }
+
+.or-seperator {
+    margin-top: 32px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+}
+.or-seperator b {
+    color: #666;
+    padding: 0 8px;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 26px;
+    background: #fff;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    position: relative;
+    top: -15px;
+    z-index: 1;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

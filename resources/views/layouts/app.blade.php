@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Neo Ighodaro">
     <title>LaravelCMS</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -41,7 +40,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/">Category</a>
+                        <a class="nav-link waves-effect" href="#">Category</a>
                     </li>
                 </ul>
 
@@ -66,11 +65,75 @@
                           </form>
                         </li>
                       @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownLogin">Login</a>
+                            <div class="dropdown-menu dropdown-menu-right shdaow" aria-labelledby="dropdownLogin">
+                              <div class="login-item">
+                                <form class="" action="{{ route('login') }}" method="post">
+                                  @csrf
+                                  <p class="hint-text">Sign in with your social media account</p>
+                                  <div class="form-group social-btn clearfix text-center">
+                                    <a href="#" class="btn btn-primary pull-left"><i class="fab fa-google"></i> Google</a>
+                                  </div>
+                                  <div class="or-seperator"><b>or</b></div>
+                                  <div class="form-group">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                                      @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                                  </div>
+                                  <input type="submit" class="btn btn-primary btn-block" value="Login">
+                                  @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                                </form>
+                              </div>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownRegister" href="#">Register</a>
+                          <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownRegister">
+                            <div class="login-item">
+                              <form class="" action="{{ route('login') }}" method="post">
+                                @csrf
+                                <p class="hint-text">Sign up with your social media account</p>
+                                <div class="form-group social-btn clearfix text-center">
+                                  <a href="#" class="btn btn-primary pull-left"><i class="fab fa-google"></i> Google</a>
+                                </div>
+                                <div class="or-seperator"><b>or</b></div>
+                                <div class="form-group">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                                  @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                  @enderror
+                                </div>
+                                <div class="form-group">
+                                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Register">
+                              </form>
+                            </div>
+                          </div>
                         </li>
                     @endauth
                   @endif
@@ -85,9 +148,9 @@
         @yield('content')
     </div>
 
-    <footer class="py-3 bg-dark">
+    <footer class="py-3 bg-light shadow-lg">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Athharkautsar 2020</p>
+        <p class="m-0 text-center">Copyright &copy; Athharkautsar 2020</p>
       </div>
     </footer>
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
@@ -96,6 +159,9 @@
     <script>
       $(".right").toggleClass('rounded float-right');
       $(".left").toggleClass('rounded float-left');
+      $(document).on("click", ".dropdown-menu", function(e){
+        e.stopPropagation();
+      });
     </script>
   </body>
 </html>
