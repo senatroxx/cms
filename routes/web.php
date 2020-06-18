@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Post;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,14 @@ Route::get('/', 'ArticleController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('article', 'ArticleController');
+
+Route::any('/search',function(Request $request){
+    $q = $request->q;
+    $post = Post::where('title','LIKE','%'.$q.'%')->orWhere('body','LIKE','%'.$q.'%')->get();
+    if(count($post) > 0)
+        return view('landing', ['posts' => $post, 'q' => $q]);
+    else return view ('landing')->withMessage('No Details found. Try to search again !');
+});
 
 Route::middleware(['auth', 'verifyadmin'])->group(function () {
     Route::get('/admin', 'AdminController@index')->name('admin.dashboard');

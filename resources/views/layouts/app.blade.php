@@ -48,9 +48,6 @@
                 <ul class="navbar-nav nav-flex-icons">
                   @if (Route::has('login'))
                     @auth
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}">Home</a>
-                      </li>
                       @if(Auth::user()->roles[0]->id == 2)
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -97,7 +94,7 @@
                               </div>
                             </div>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownRegister" href="#">Register</a>
                           <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownRegister">
                             <div class="login-item">
@@ -137,6 +134,11 @@
                         </li>
                     @endauth
                   @endif
+                  <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                  @csrf
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" autocomplete="off">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                  </form>
                 </ul>
 
             </div>
@@ -148,7 +150,7 @@
         @yield('content')
     </div>
 
-    <footer class="py-3 bg-light shadow-lg">
+    <footer class="py-3 bg-light shadow">
       <div class="container">
         <p class="m-0 text-center">Copyright &copy; Athharkautsar 2020</p>
       </div>
