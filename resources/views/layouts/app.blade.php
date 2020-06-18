@@ -18,43 +18,67 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="/">LaravelCMS</a>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-              @if (Route::has('login'))
-                @auth
-                <li class="nav-item">
-                      <a class="nav-link" href="{{ route('index') }}">Home</a>
-                </li>
-                @if(Auth::user()->roles[0]->id == 2)
-                <li class="nav-item">
-                      <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                </li>
-                @endif
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">
-                    Log out
-                  </a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                  </form>
-                  </li>
-                  @else
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('login') }}">Login</a>
-                </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('register') }}">Register</a>
-                  </li>
-                  @endauth
-              @endif
-          </ul>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand waves-effect" href="{{ route('index') }}">
+                <strong class="blue-text">Laravel CMS</strong>
+            </a>
+
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{{ route('index') }}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/">Category</a>
+                    </li>
+                </ul>
+
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                  @if (Route::has('login'))
+                    @auth
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index') }}">Home</a>
+                      </li>
+                      @if(Auth::user()->roles[0]->id == 2)
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        </li>
+                      @endif
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Log out
+                          </a>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                          </form>
+                        </li>
+                      @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+                    @endauth
+                  @endif
+                </ul>
+
+            </div>
+
         </div>
-      </div>
     </nav>
 
     <div id="app">

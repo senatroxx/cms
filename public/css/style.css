@@ -50,3 +50,5 @@ ul ul a {
 a[data-toggle="collapse"] {
     position: relative;
 }
+
+.post-style-1 .blog-image{ max-height: 200px; overflow: hidden; }
