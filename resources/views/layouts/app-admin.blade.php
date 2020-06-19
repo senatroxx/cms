@@ -36,7 +36,7 @@
                         <i class="ti-menu ti-close"></i>
                     </a>
                     <div class="navbar-brand">
-                        <a href="index.html" class="logo">
+                        <a href="{{ route('index') }}" class="logo">
                             <b class="logo-icon text-white">
                               <i class="fas fa-coffee"></i>
                             </b>
