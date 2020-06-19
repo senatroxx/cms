@@ -55,9 +55,12 @@ class PostController extends Controller
             preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $body, $image);
 
             $explode = explode(',', str_replace(' ', '',$request->category));
-
-            for ($i=0; $i < count($explode); $i++) {
-                Category::firstOrCreate(['name' => $explode[$i]]);
+            
+            // dd(is_string($explode[0]));
+            if (!is_string($explode[0])) {
+                for ($i=0; $i < count($explode); $i++) {
+                    Category::firstOrCreate(['name' => $explode[$i]]);
+                }
             }
 
             $category_id = new Category;
@@ -71,12 +74,14 @@ class PostController extends Controller
                 'image' => $image['src'] ?? NULL,
             ])->id;
 
-            for ($y=0; $y < count($category); $y++) { 
-                Catpost::create([
-                    'post_id' => $post_id,
-                    'category_id' => $category[$y]->id,
-                ]);
-            }            
+            if (!is_string($explode[0])) {
+                for ($y=0; $y < count($category); $y++) { 
+                    Catpost::create([
+                        'post_id' => $post_id,
+                        'category_id' => $category[$y]->id,
+                    ]);
+                }
+            }       
 
             return redirect()->route('post.index');
         }
@@ -102,19 +107,21 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $category_post = Catpost::where('post_id', $post->id)->get();
+
         for ($i=0; $i < count($category_post); $i++) { 
             $categoryy[] = $category_post[$i]->category_id;
         }
-
-        
-        
         $category_id = new Category;
-        $category_id = $category_id->whereIn('id', $categoryy);
-        $category_mentah = $category_id->get();
-        for ($y=0; $y < count($category_mentah); $y++) { 
-            $category_mentah2[] = $category_mentah[$y]->name;
+        if (!empty($categoryy)) {
+            $category_id = $category_id->whereIn('id', $categoryy);
+            $category_mentah = $category_id->get();
+            for ($y=0; $y < count($category_mentah); $y++) { 
+                $category_mentah2[] = $category_mentah[$y]->name;
+            }
+            $category = implode(", ", $category_mentah2);
+        }else{
+            $category = '';
         }
-        $category = implode(", ", $category_mentah2);
 
         return view('admin.articles.edit', ['posts' => $post, 'category' => $category]);
     }
