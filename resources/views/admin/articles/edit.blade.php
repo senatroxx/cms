@@ -17,10 +17,11 @@
     <div class="col-11">
         <div class="input-group">
             <input type="text" class="form-control" name="title" placeholder="Title" value="{{ $posts->title }}">
+            <input type="text" class="form-control" name="category" placeholder="Categories" value="{{ $category }}">
         </div>
     </div>
     <div class="col-1">
-        <input type="submit" value="Save" class="btn btn-dark float-right mb-3">
+    <input type="submit" value="Save" class="btn btn-dark float-right mb-3 d-block">
     </div>
 </div>
 <div class="row">

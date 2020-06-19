@@ -101,7 +101,22 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.articles.edit', ['posts' => $post]);
+        $category_post = Catpost::where('post_id', $post->id)->get();
+        for ($i=0; $i < count($category_post); $i++) { 
+            $categoryy[] = $category_post[$i]->category_id;
+        }
+
+        
+        
+        $category_id = new Category;
+        $category_id = $category_id->whereIn('id', $categoryy);
+        $category_mentah = $category_id->get();
+        for ($y=0; $y < count($category_mentah); $y++) { 
+            $category_mentah2[] = $category_mentah[$y]->name;
+        }
+        $category = implode(", ", $category_mentah2);
+
+        return view('admin.articles.edit', ['posts' => $post, 'category' => $category]);
     }
 
     /**
