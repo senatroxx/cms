@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-  <div class="row">
+  <div class="bg-white py-4 shadow-sm">
     <div class="col-lg-10 mx-auto">
-      <h3 class="mt-4">{{ $post->title }} <span class="lead"> by <a href="#"> {{ $post->user->name }} </a></span> </h3>
+      <h3 class="mt-4">{{ $post->title }} <span class="lead"> by {{ $post->user->name }}</span> </h3>
       <hr>
       <p>Posted {{ $post->created_at->diffForHumans() }} </p>
       <hr>

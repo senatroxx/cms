@@ -66,13 +66,9 @@
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownLogin">Login</a>
                             <div class="dropdown-menu dropdown-menu-right shdaow" aria-labelledby="dropdownLogin">
                               <div class="login-item">
-                                <form class="" action="{{ route('login') }}" method="post">
+                                <form class="" action="{{ route('login') }}" method="post" style="min-width:250px">
                                   @csrf
-                                  <p class="hint-text">Sign in with your social media account</p>
-                                  <div class="form-group social-btn clearfix text-center">
-                                    <a href="#" class="btn btn-primary pull-left"><i class="fab fa-google"></i> Google</a>
-                                  </div>
-                                  <div class="or-seperator"><b>or</b></div>
+                                  <h3 class="hint-text text-center border-bottom pb-3 mb-3">Login</h3>
                                   <div class="form-group">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
                                       @error('email')
@@ -98,13 +94,9 @@
                           <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownRegister" href="#">Register</a>
                           <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownRegister">
                             <div class="login-item">
-                              <form class="" action="{{ route('login') }}" method="post">
+                              <form class="" action="{{ route('login') }}" method="post" style="min-width:250px">
                                 @csrf
-                                <p class="hint-text">Sign up with your social media account</p>
-                                <div class="form-group social-btn clearfix text-center">
-                                  <a href="#" class="btn btn-primary pull-left"><i class="fab fa-google"></i> Google</a>
-                                </div>
-                                <div class="or-seperator"><b>or</b></div>
+                                <h3 class="hint-text text-center border-bottom pb-3 mb-3">Register</h3>
                                 <div class="form-group">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
                                 @error('name')
