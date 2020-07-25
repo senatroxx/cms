@@ -19,17 +19,21 @@ Copy the .env.example file to .env
 Setup your database and app_url to your development url.
 e.g.,
 <pre>
-<code>
-DB_CONNECTION=mysql
+<code>DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_DATABASE=cms
 DB_USERNAME=root
-DB_PASSWORD=
-</code>
+DB_PASSWORD=</code>
 </pre>
 <pre>
-<code>
-APP_URL=http://cms.test
-</code>
+<code>APP_URL=http://cms.test</code>
 </pre>
+
+Migrate your database
+<pre><code>php artisan migrate --seed</code></pre>
+
+<h2>User</h2>
+<br>
+<pre><code>email: admin@gmail.com
+password: admin123</code></pre>
